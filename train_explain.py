@@ -16,7 +16,7 @@ from azureml.core import Run, Dataset, Workspace
 ws = Run.get_context().experiment.workspace
 os.makedirs('./outputs', exist_ok=True)
 
-attritionData = Dataset.get_by_name(ws,'IBM-Employee-Attrition').to_pandas_dataframe()
+attritionData = Dataset.get_by_name(ws,'employeeattrition').to_pandas_dataframe()
 
 # Dropping Employee count as all values are 1 and hence attrition is independent of this feature
 attritionData = attritionData.drop(['EmployeeCount'], axis=1)
@@ -83,7 +83,7 @@ run = Run.get_context()
 run.upload_file('x_test_ibm.pkl', os.path.join('./outputs/', x_test_pkl))
 
 # Upload the model (just take the one from the repo...needs to be changed)
-shutil.copy2('original_model.pkl', 'outputs/original_model.pkl')
+shutil.copy2('Deployment/model.pkl', 'outputs/original_model.pkl')
 
 # Register model
 #original_model = run.register_model(model_name='IBM_attrition_model', model_path='original_model.pkl')
