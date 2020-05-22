@@ -35,7 +35,7 @@ cat(get_webservice_logs(service))
 # If you encounter any issue in deploying the webservice, please visit
 # https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-troubleshoot-deployment
 
-all_data <- fread('../data/IBM-Employee-Attrition.csv',stringsAsFactors = TRUE)
+all_data <- fread('Employee-Attrition.csv',stringsAsFactors = TRUE)
 # remove useless fields 
 all_data <- within(all_data, rm(EmployeeCount, Over18, StandardHours, EmployeeNumber))
 # make sure attrition is a factor
