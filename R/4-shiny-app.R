@@ -7,7 +7,7 @@ library(jsonlite)
 library(data.table)
 
 ws <- load_workspace_from_config()
-all_data <- fread('../data/IBM-Employee-Attrition.csv',stringsAsFactors = TRUE)
+all_data <- fread('Employee-Attrition.csv',stringsAsFactors = TRUE)
 # remove useless fields 
 all_data = within(all_data, rm(EmployeeCount, Over18, StandardHours, EmployeeNumber))
 # make sure attrition is a factor
