@@ -5,15 +5,18 @@ ws <- load_workspace_from_config()
 
 ds <- get_default_datastore(ws)
 
+datasets = ws$datasets
+print(datasets)
+
 # Upload attrition data set to the datastore
 # Note: We could have obviously re-used the dataset we've created earlier!
-upload_files_to_datastore(ds,
-                          list("../data/IBM-Employee-Attrition.csv"),
-                          target_path = 'attrition',
-                          overwrite = TRUE)
+#upload_files_to_datastore(ds,
+#                          list("../data/IBM-Employee-Attrition.csv"),
+#                          target_path = 'attrition',
+#                          overwrite = TRUE)
 
 # Create an AmlCompute cluster or retrieve an existing one
-cluster_name <- 'cpu-cluster'
+cluster_name <- 'cpucluster'
 compute_target <- get_compute(ws, cluster_name = cluster_name)
 if (is.null(compute_target)) {
   vm_size <- 'STANDARD_D2_V2'
@@ -32,10 +35,14 @@ env <- r_environment(name = 'attrition-env', cran_packages = c('kernlab'))
 # Register the environment to your workspace
 register_environment(env, ws)
 
+attrition = get_dataset_by_name(ws, name = "employeeattrition")
+print(attrition)
+
+
 # Define an estimator to specify your training run configuration
 est <- estimator(source_directory = '.',
                  entry_script = 'train.R',
-                 script_params = list('--data' = ds$path('attrition/IBM-Employee-Attrition.csv')),
+                 script_params = list('--data' = ds$path('UI/05-20-2020_070724_UTC/Employee-Attrition.txt')),
                  compute_target = compute_target,
                  environment = env
                  )
